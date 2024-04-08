@@ -94,12 +94,19 @@ void inOrder(struct node* treePtr)
 		inOrder(treePtr->leftPtr);
 		printf("%d ", treePtr->data);
 		inOrder(treePtr->rightPtr);
+		// printf("%d ", treePtr->data);
 	}
 }
 
 void delete_tree(struct node** treePtr)
 {
-       free(*treePtr);
-	   delete_tree(&((*treePtr)->leftPtr));
-       delete_tree(&((*treePtr)->rightPtr));
+	if (*treePtr != NULL)//check if the node exists
+	{
+		delete_tree(&((*treePtr)->leftPtr));//look left
+        delete_tree(&((*treePtr)->rightPtr));//look right
+		free(*treePtr);//visit node
+		(*treePtr) = NULL;//inform the tree that node has been freed
+	}
+       
+	//    free(*treePtr);
 }
